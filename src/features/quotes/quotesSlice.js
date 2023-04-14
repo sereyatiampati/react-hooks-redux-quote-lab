@@ -12,21 +12,21 @@ export const addQuote = (quote) => {
  
 export const removeQuote = (id) => {
   return ({
-    type: 'quotes/remove',
+    type: "quotes/remove",
     payload: id,
   } );
 }
  
 export const upvoteQuote = (id) => {
   return ({
-    type: 'quotes/upvote',
+    type: "quotes/upvote",
     payload: id,
   }  );
 }
 
 export const downvoteQuote = (id) => {
   return ({
-    type: 'quotes/downvote',
+    type: "quotes/downvote",
     payload: id
   }  );
 }
@@ -41,14 +41,14 @@ export default function quotesReducer(state = initialState, action) {
     case "quotes/remove":
       return state.filter((quote) => quote.id !== action.payload);
     case "quotes/upvote":
-      return state.quotes.map(quote => {
+      return state.map(quote => {
         if (quote.id === action.payload) {
           return { ...quote, votes: quote.votes + 1  };
         }
         return quote;
       });
     case "quotes/downvote":
-          return state.quotes.map(quote => {
+          return state.map(quote => {
             if (quote.id === action.payload && quote.votes > 0) {
               return { ...quote, votes: quote.votes - 1  };
             }
@@ -58,3 +58,19 @@ export default function quotesReducer(state = initialState, action) {
   return state;
   }
 }
+
+// case "quotes/upvote":
+//   return state.map((quote) => {
+//     if (quote.id === action.payload) {
+//       return { ...quote, votes: quote.votes + 1 };
+//     }
+//     return quote;
+//   });
+
+// case "quotes/downvote":
+//   return state.map((quote) => {
+//     if (quote.id === action.payload && quote.votes > 0) {
+//       return { ...quote, votes: quote.votes - 1 };
+//     }
+//     return quote;
+//   });
